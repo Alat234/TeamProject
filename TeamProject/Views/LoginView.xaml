@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="TeamProject.Views.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:TeamProject.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+   <Border Background="#333">
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+           
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Button  Grid.Column="5" 
+             Grid.Row="0" 
+             Margin="10"
+             Padding="10"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+             x:Name="Continue_without_regestraton" 
+             Command="{Binding  NavigateToImageEditor}"
+             >
+            Continue without regestraton</Button>
+        <ScrollViewer Grid.Column="1" Grid.RowSpan="4" Grid.Row="1" Grid.ColumnSpan="3" 
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical"
+                        Margin="10"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch">
+                <TextBlock Margin="0 0 0 10">Enter Email</TextBlock>
+                <TextBox x:Name="Email" Padding="10" Margin="0 0 0 10" VerticalAlignment="Stretch" 
+                         Text="{Binding Email}"/>
+
+                
+
+                <TextBlock Margin="0 0 0 10">Enter Password</TextBlock>
+                <PasswordBox x:Name="Password" Padding="10" Margin="0 0 0 10"
+                             PasswordChanged="PasswordBox_PasswordChanged" VerticalAlignment="Stretch" 
+                             />
+
+
+                <TextBlock Margin="0 0 0 10" HorizontalAlignment="Center"  >
+                    <Hyperlink Command="{Binding NavigateToRegistration}"
+                               TextDecorations="Underline">I don`t have an account</Hyperlink>
+                </TextBlock>
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,10" />
+                <Button x:Name="Login1" Padding="10" VerticalAlignment="Stretch" Margin="0 0 0 10" 
+                        Command="{Binding LoginCommand}" >Login</Button>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Border>
+</UserControl>

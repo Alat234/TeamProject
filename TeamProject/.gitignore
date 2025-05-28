@@ -1,0 +1,29 @@
+﻿# Visual Studio / Rider ignore files
+*.suo
+*.user
+*.sln.docstates
+
+# Build output
+bin/
+obj/
+
+# NuGet Packages
+packages/
+*.nupkg
+
+# SQLite database (твоя appdb.db)
+appdb.db
+
+# macOS/Linux specific files
+.DS_Store
+
+# Rider specific files
+.idea/
+*.iml
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Environment variables
+.env

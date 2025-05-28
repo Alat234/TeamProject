@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="TeamProject.Views.MyImageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:TeamProject.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="700" d:DesignWidth="700">
+            
+<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Навігаційна панель -->
+        <local:NavigationBar Grid.Row="0" DataContext="{Binding NavigationBarViewModel}"/>
+
+        <!-- Список зображень -->
+        <ScrollViewer Grid.Row="1">
+        <ListBox  ItemsSource="{Binding UserImages}" Margin="10"
+                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" 
+                               ItemWidth="170" 
+                               ItemHeight="170" 
+                               MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ListBox}}" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Gray" BorderThickness="1" Margin="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!-- Мініатюра зображення -->
+                            <Image Grid.Row="0" Source="{Binding ImageSource}" 
+                                   Stretch="Uniform" Width="120" Height="100" 
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                            <!-- Кнопки для редагування та видалення -->
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="Edit" Command="{Binding DataContext.EditImageCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        CommandParameter="{Binding}" Margin="2" Padding="5,2" />
+                                <Button Content="Delete" Command="{Binding DataContext.DeleteImageCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        CommandParameter="{Binding}" Margin="2" Padding="5,2" />
+                            </StackPanel>
+                                 
+                        </Grid>
+                        
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        </ScrollViewer>     
+    </Grid>
+</UserControl>

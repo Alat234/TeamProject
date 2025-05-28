@@ -1,0 +1,124 @@
+﻿using AutoMapper;
+using TeamProject.Base;
+using TeamProject.DTOs;
+using TeamProject.Services;
+
+namespace TeamProject.ViewModels;
+
+public class NavigationBarViewModel : ViewModelBase
+{
+    private UserDto _userDto;
+    private INavigationService _navService;
+    private readonly IAuthenticationService _authService;
+    private string _userName;
+    private string _userEmail;
+    private bool _isPopupOpen;
+    public RelayCommand LogoutCommand { get; set; }
+    public RelayCommand ShowUserInfoCommand { get; set; }
+    public RelayCommand NavigateToMyImagesCommand { get; set; }
+    public RelayCommand NavigateToImageEditorCommand { get; set; }
+    public NavigationBarViewModel(INavigationService navService, IAuthenticationService authService)
+    {
+        _navService = navService ?? throw new ArgumentNullException(nameof(navService));
+        _authService = authService ?? throw new ArgumentNullException(nameof(authService));
+        GetUserData();
+
+      
+        ShowUserInfoCommand = new RelayCommand(execute: _ => ShowUserInfo());
+        LogoutCommand = new RelayCommand(execute: _ => Logout());
+        NavigateToMyImagesCommand = new RelayCommand(execute: _ =>Navigation.NavigateTo<MyImageViewModel>() );
+        NavigateToImageEditorCommand = new RelayCommand(execute: _ =>Navigation.NavigateTo<ImageEditorViewModel>() );
+    }
+
+ 
+
+
+    private INavigationService Navigation
+    {
+        get=> _navService;
+        set
+        {
+            _navService=value;
+            OnPropertyChanged();
+        }
+    }
+    public void RefreshUserData()
+    {
+        GetUserData();
+        
+    }
+
+    public UserDto UserDto
+    {
+        get => _userDto;
+        set
+        {
+            _userDto = value;
+            OnPropertyChanged(nameof(UserDto));
+            UpdateUserName(); 
+        }
+    }
+
+    public string UserName
+    {
+        get => _userName;
+        set
+        {
+            _userName = value;
+            OnPropertyChanged(nameof(UserName));
+        }
+    }
+    public string UserEmail
+    {
+        get => _userEmail;
+        set
+        {
+            _userEmail = value;
+            OnPropertyChanged(nameof(UserEmail));
+        }
+    }
+
+    public bool IsPopupOpen
+    {
+        get => _isPopupOpen;
+        set
+        {
+            _isPopupOpen = value;
+            OnPropertyChanged(nameof(IsPopupOpen));
+        }
+    }
+
+    public RelayCommand NavigateToLoginCommand { get; set; }
+    
+
+    private void GetUserData()
+    {
+        UserDto = _authService.CurrentUser ?? new UserDto { Name = "Guest" };
+    }
+
+    private void UpdateUserName()
+    {
+        UserName = _userDto?.Name ?? "Guest";
+    }
+    private void UpdateUserInfo()
+    {
+        UserName = _userDto?.Name ?? "Guest";
+        UserEmail = _userDto?.Email ?? "No email";
+    }
+    private void ShowUserInfo()
+    {
+        
+            UpdateUserInfo();
+            IsPopupOpen = true;
+        
+    }
+    private  void Logout()
+    {
+       _authService.Logout();
+        GetUserData();
+        IsPopupOpen = false; 
+        _navService.NavigateTo<LoginViewModal>();
+    }
+
+    
+}

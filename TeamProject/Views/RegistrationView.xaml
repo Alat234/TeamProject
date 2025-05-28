@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="TeamProject.Views.RegistrationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:TeamProject.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="800" d:DesignWidth="800">
+    <Border Background="#333">
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/> <!-- Збільшимо ширину для форми -->
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/> <!-- Зменшимо висоту для компактності -->
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Фонова панель для форми -->
+            <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Background="#444" CornerRadius="10" Padding="20" 
+                    BorderBrush="#666" BorderThickness="1" Margin="20">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <!-- Заголовок -->
+                        <TextBlock Text="Registration" FontSize="24" Foreground="White" 
+                                   FontWeight="Bold" Margin="0 0 0 20" TextAlignment="Center"/>
+
+                        <!-- Поле Email -->
+                        <TextBlock Text="Enter Email" Foreground="LightGray" Margin="0 0 0 5"/>
+                        <TextBox x:Name="Email" Padding="10" Margin="0 0 0 10" VerticalAlignment="Stretch" 
+                                 Text="{Binding Email}" Background="#555" Foreground="White" 
+                                 BorderBrush="#888" BorderThickness="1" />
+
+                        <!-- Поле UserName -->
+                        <TextBlock Text="Enter your name" Foreground="LightGray" Margin="0 0 0 5"/>
+                        <TextBox x:Name="UserName" Padding="10" Margin="0 0 0 10" VerticalAlignment="Stretch" 
+                                 Text="{Binding Username}" Background="#555" Foreground="White" 
+                                 BorderBrush="#888" BorderThickness="1" />
+
+                        <!-- Поле Password -->
+                        <TextBlock Text="Enter Password" Foreground="LightGray" Margin="0 0 0 5"/>
+                        <PasswordBox x:Name="Password" Padding="10" Margin="0 0 0 10" VerticalAlignment="Stretch" 
+                                     PasswordChanged="PasswordBox_PasswordChanged" Background="#555" Foreground="White" 
+                                     BorderBrush="#888" BorderThickness="1" />
+
+                        <!-- Поле Repeat Password -->
+                        <TextBlock Text="Repeat Password" Foreground="LightGray" Margin="0 0 0 5"/>
+                        <PasswordBox x:Name="RepeatPassword" Padding="10" Margin="0 0 0 10" VerticalAlignment="Stretch" 
+                                     PasswordChanged="RepeatedPasswordBox_PasswordChanged" Background="#555" Foreground="White" 
+                                     BorderBrush="#888" BorderThickness="1" />
+
+                        <!-- Повідомлення про помилку -->
+                        <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" Margin="0 10" TextAlignment="Center"/>
+
+                        <!-- Посилання на логін -->
+                        <TextBlock Margin="0 10 0 10" HorizontalAlignment="Center">
+                            <Hyperlink Command="{Binding NavigateToLogin}" Foreground="LightBlue" 
+                                       TextDecorations="Underline">I have an account</Hyperlink>
+                        </TextBlock>
+
+                        <!-- Кнопка Реєстрації -->
+                        <Button Padding="10" Margin="0 0 0 10" VerticalAlignment="Stretch" 
+                                Command="{Binding RegisterCommand}" Background="#4CAF50" Foreground="White" 
+                                BorderBrush="#388E3C" BorderThickness="1" Cursor="Hand">
+                            <Button.Content>
+                                <TextBlock Text="Registration" FontWeight="Medium"/>
+                            </Button.Content>
+                        </Button>
+
+                        <!-- Кнопка Продовжити без реєстрації -->
+                        <Button Grid.Column="1" Grid.Row="0" Margin="10" Padding="10" VerticalAlignment="Center" 
+                                HorizontalAlignment="Center" Command="{Binding NavigateToImageEditor}" 
+                                Background="#FF5722" Foreground="White" BorderBrush="#D84315" BorderThickness="1" Cursor="Hand">
+                            <Button.Content>
+                                <TextBlock Text="Continue without registration" FontWeight="Medium"/>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

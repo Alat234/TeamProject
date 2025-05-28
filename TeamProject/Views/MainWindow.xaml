@@ -1,0 +1,33 @@
+﻿<Window x:Class="TeamProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TeamProject"
+        xmlns:views="clr-namespace:TeamProject.Views"
+        xmlns:vms="clr-namespace:TeamProject.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="1024" Width="1440">
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:RegistrationViewModel}">
+                <views:RegistrationView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:MainViewModal}">
+                <StackPanel>
+                    <Button Command="{Binding NavigateToLogin}">login</Button>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:LoginViewModal}">
+                <views:LoginView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:ImageEditorViewModel}">
+                <views:ImageEditorView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:MyImageViewModel}">
+                <views:MyImageView />
+            </DataTemplate>
+        </Grid.Resources>
+        <ContentControl Content="{Binding CurrentViewModel}" />
+    </Grid>
+</Window>
