@@ -19,6 +19,7 @@ public class SecretTextlistViewModel : ViewModelBase
 
     private string _currentSecretText; // Поле для зберігання видобутого секретного тексту
     private bool _isSecretTextVisible; // Поле для керування видимістю текстового блоку
+    private readonly INavigationService _navigationService;
 
     public NavigationBarViewModel NavigationBarViewModel
     {
@@ -68,18 +69,40 @@ public class SecretTextlistViewModel : ViewModelBase
         INavigationService navigationService, IImageService imageService)
     {
         NavigationBarViewModel = new NavigationBarViewModel(navigationService, authService);
+        _navigationService = navigationService;
         _imageService = imageService;
         UserImages = new ObservableCollection<ImageDto>();
         _authService = authService;
         _imageEditorService = imageEditorService;
 
      
-        DeleteImageCommand = new RelayCommand(ExecuteDeleteImageCommand);
+       
         ShowSecretTextCommand = new RelayCommand(ExecuteShowSecretTextCommand); 
+        EditImageCommand = new RelayCommand(execute: async parameter => await EditImage(parameter), canExecute: _ => true);
+        DeleteImageCommand =
+            new RelayCommand(execute: async parameter => await DeleteImage(parameter), canExecute: _ => true);
 
         LoadImagesAsync();
     }
-    
+
+    private async Task DeleteImage(object parameter)
+    {
+        if (parameter is ImageDto image)
+        {
+            await  _imageService.DeleteImageById(image.Id);
+            UserImages.Remove(image);
+        }
+    }
+
+    private async Task EditImage(object parameter)
+    {
+        if (parameter is ImageDto image)
+        {
+            _imageService.SetImageInStore(image);
+            _navigationService.NavigateTo<ImageEditorViewModel>();
+        }
+    }
+
     private async Task LoadImagesAsync()
     {
         var userId = _authService.CurrentUser?.Id;
@@ -99,16 +122,7 @@ public class SecretTextlistViewModel : ViewModelBase
 
 
    
-
-    private void ExecuteDeleteImageCommand(object parameter)
-    {
-     
-        if (parameter is ImageDto imageDto)
-        {
-            // Підтвердження видалення, виклик сервісу для видалення
-            // та оновлення UserImages
-        }
-    }
+    
 
     private  void ExecuteShowSecretTextCommand(object parameter)
     {

@@ -172,6 +172,8 @@ public class ImageEditorViewModel:ViewModelBase
         if (ImageSource == null)
             return;
         SecretText = _imageEditorService.GetSecretText(_editedImageSource);
+        _imageDtoFromDb.HasSecretText = true;
+        _isImageHasSecretText=true;
         
         
     }
