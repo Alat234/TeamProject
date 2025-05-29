@@ -19,7 +19,7 @@ public class AddSecretTextCommand: IAddSecretTextCommand
             return image; 
         }
 
-        // Перевірка формату зображення
+       
         if (image.Format != PixelFormats.Bgr32 && image.Format != PixelFormats.Bgra32)
         {
             throw new ArgumentException("Image must be in Bgr32 or Bgra32 format.");
@@ -37,7 +37,7 @@ public class AddSecretTextCommand: IAddSecretTextCommand
 
         for (int i = 0; i < pixelData.Length && messageIndex < messageBytes.Length; i++)
         {
-            // Пропускаємо альфа-канал (кожен 4-й байт)
+            
             if (i % 4 == 3) continue;
 
             if (bitIndex < 8)

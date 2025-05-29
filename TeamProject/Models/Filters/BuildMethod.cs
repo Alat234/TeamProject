@@ -4,5 +4,5 @@ public enum BuildMethod
 {
     Lines,
     Rain,
-    Vignette
+    Pixelation
 }

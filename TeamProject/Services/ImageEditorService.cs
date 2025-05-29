@@ -24,12 +24,14 @@ public class ImageEditorService: IImageEditorService
     private readonly IAddSecretTextCommand _addSecretTextCommand;
     private readonly IModifyLinesCommand _modifyLinesCommand;
     private readonly IModifyRainCommand _modifyHiperbolaCommand;
+    private readonly IPixelationCommand _pixelationCommand;
 
 
     public ImageEditorService(IAddWatermarkCommend addWatermarkCommend,IAddNoiseCommand addNoiseCommand,
         IGetSecretText getSecretText,IAddSecretTextCommand addSecretTextCommand, IModifyLinesCommand modifyLinesCommand
-        ,IModifyRainCommand modifyRainCommand)
+        ,IModifyRainCommand modifyRainCommand,IPixelationCommand pixelationCommand)
     {
+        _pixelationCommand=pixelationCommand;
         _modifyHiperbolaCommand=modifyRainCommand;
         _modifyLinesCommand=modifyLinesCommand;
         _addSecretTextCommand=addSecretTextCommand;
@@ -68,6 +70,10 @@ public class ImageEditorService: IImageEditorService
         if(method == BuildMethod.Rain)
         {
             return _modifyHiperbolaCommand.Execute(bitmapSource, colorPlate);
+        }
+        if(method == BuildMethod.Pixelation)
+        {
+            return _pixelationCommand.Execute(bitmapSource, colorPlate);
         }
         
 

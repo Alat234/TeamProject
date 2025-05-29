@@ -1,0 +1,34 @@
+﻿<Window x:Class="TeamProject.Views.AboutProgram"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:TeamProject.Views"
+        mc:Ignorable="d"
+        Title="AboutProgram" Height="450" Width="800">
+    <Grid Margin="20">
+      
+        <Border Background="#444" 
+                CornerRadius="10" 
+                BorderBrush="#666" 
+                BorderThickness="1" 
+                Padding="20">
+            <TextBlock Text="Про програму:
+ZDZEditor це desktop-програма, створена командою ZDZ. 
+Ця програма призначена для зручного редагування зображень формату BMP і пропонує широкий спектр функцій:
+- Створення акаунта для збереження ваших робіт у хмарі.
+- Редагування BMP-зображень із можливістю застосування різних ефектів.
+- Додавання унікальних фільтрів (лінії, дощ, віньєтка) для творчого оформлення.
+- Шифрування секретного тексту всередині зображень для додаткового захисту.
+Програма дозволяє працювати без входу в акаунт, але збереження змін доступне лише після авторизації. 
+Збереження файлів на вашому ПК працює завжди, незалежно від статусу входу.
+Оскільки TeamProject перебуває на стадії альфа-версії і не має зовнішнього фінансування, у ній можуть бути баги або нестабільна робота. 
+Ми вдячні за ваше терпіння та просимо повідомляти про будь-які помилки чи пропозиції на email: atavlad20052gmail.com. 
+Ваша зворотня реакція допоможе нам покращити програму!" 
+                       TextWrapping="Wrap" 
+                       FontSize="14" 
+                       Foreground="White"
+                       />
+        </Border>
+    </Grid>
+</Window>

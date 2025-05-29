@@ -6,80 +6,141 @@
              xmlns:local="clr-namespace:TeamProject.Views"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="800">
+    <UserControl.Resources>
+        <!-- Стиль для кнопки "Registration" -->
+        <Style x:Key="RegistrationButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#388E3C"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="15 8"/> <!-- Збільшено горизонтальний Padding -->
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="MinWidth" Value="150"/> <!-- Мінімальна ширина кнопки -->
+            <Setter Property="MinHeight" Value="40"/> <!-- Мінімальна висота кнопки -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <!-- Тригер для відключеного стану -->
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                    <Setter Property="Background" Value="#2E7D32"/>
+                    <Setter Property="BorderBrush" Value="#2E7D32"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Стиль для кнопки "Continue without registration" -->
+        <Style x:Key="ContinueButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FF5722"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#D84315"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="15 8"/> <!-- Збільшено горизонтальний Padding -->
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="MinWidth" Value="200"/> <!-- Більша ширина для довшого тексту -->
+            <Setter Property="MinHeight" Value="40"/> <!-- Мінімальна висота кнопки -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <!-- Тригер для відключеного стану -->
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                    <Setter Property="Background" Value="#E64A19"/>
+                    <Setter Property="BorderBrush" Value="#E64A19"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
     <Border Background="#333">
         <Grid Margin="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/> <!-- Збільшимо ширину для форми -->
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="2*"/> <!-- Зменшимо висоту для компактності -->
+                <RowDefinition Height="3*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <!-- Фонова панель для форми -->
-            <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Background="#444" CornerRadius="10" Padding="20" 
-                    BorderBrush="#666" BorderThickness="1" Margin="20">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <!-- Заголовок -->
-                        <TextBlock Text="Registration" FontSize="24" Foreground="White" 
-                                   FontWeight="Bold" Margin="0 0 0 20" TextAlignment="Center"/>
+            <Border Grid.Column="1" Grid.Row="1" Background="#444" CornerRadius="10" Padding="15" 
+                    BorderBrush="#666" BorderThickness="1">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <!-- Заголовок -->
+                    <TextBlock Text="Registration" FontSize="20" Foreground="White" 
+                               FontWeight="Bold" Margin="0 0 0 10" TextAlignment="Center"/>
 
-                        <!-- Поле Email -->
-                        <TextBlock Text="Enter Email" Foreground="LightGray" Margin="0 0 0 5"/>
-                        <TextBox x:Name="Email" Padding="10" Margin="0 0 0 10" VerticalAlignment="Stretch" 
-                                 Text="{Binding Email}" Background="#555" Foreground="White" 
+                    <!-- Поле Email -->
+                    <TextBlock Text="Enter Email" Foreground="LightGray" Margin="0 0 0 3"/>
+                    <TextBox x:Name="Email" Padding="8" Margin="0 0 0 5" VerticalAlignment="Stretch" 
+                             Text="{Binding Email}" Background="#555" Foreground="White" 
+                             BorderBrush="#888" BorderThickness="1" />
+
+                    <!-- Поле UserName -->
+                    <TextBlock Text="Enter your name" Foreground="LightGray" Margin="0 0 0 3"/>
+                    <TextBox x:Name="UserName" Padding="8" Margin="0 0 0 5" VerticalAlignment="Stretch" 
+                             Text="{Binding Username}" Background="#555" Foreground="White" 
+                             BorderBrush="#888" BorderThickness="1" />
+
+                    <!-- Поле Password -->
+                    <TextBlock Text="Enter Password" Foreground="LightGray" Margin="0 0 0 3"/>
+                    <PasswordBox x:Name="Password" Padding="8" Margin="0 0 0 5" VerticalAlignment="Stretch" 
+                                 PasswordChanged="PasswordBox_PasswordChanged" Background="#555" Foreground="White" 
                                  BorderBrush="#888" BorderThickness="1" />
 
-                        <!-- Поле UserName -->
-                        <TextBlock Text="Enter your name" Foreground="LightGray" Margin="0 0 0 5"/>
-                        <TextBox x:Name="UserName" Padding="10" Margin="0 0 0 10" VerticalAlignment="Stretch" 
-                                 Text="{Binding Username}" Background="#555" Foreground="White" 
+                    <!-- Поле Repeat Password -->
+                    <TextBlock Text="Repeat Password" Foreground="LightGray" Margin="0 0 0 3"/>
+                    <PasswordBox x:Name="RepeatPassword" Padding="8" Margin="0 0 0 5" VerticalAlignment="Stretch" 
+                                 PasswordChanged="RepeatedPasswordBox_PasswordChanged" Background="#555" Foreground="White" 
                                  BorderBrush="#888" BorderThickness="1" />
 
-                        <!-- Поле Password -->
-                        <TextBlock Text="Enter Password" Foreground="LightGray" Margin="0 0 0 5"/>
-                        <PasswordBox x:Name="Password" Padding="10" Margin="0 0 0 10" VerticalAlignment="Stretch" 
-                                     PasswordChanged="PasswordBox_PasswordChanged" Background="#555" Foreground="White" 
-                                     BorderBrush="#888" BorderThickness="1" />
+                    <!-- Повідомлення про помилку -->
+                    <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" Margin="0 5" TextAlignment="Center"/>
 
-                        <!-- Поле Repeat Password -->
-                        <TextBlock Text="Repeat Password" Foreground="LightGray" Margin="0 0 0 5"/>
-                        <PasswordBox x:Name="RepeatPassword" Padding="10" Margin="0 0 0 10" VerticalAlignment="Stretch" 
-                                     PasswordChanged="RepeatedPasswordBox_PasswordChanged" Background="#555" Foreground="White" 
-                                     BorderBrush="#888" BorderThickness="1" />
+                    <!-- Посилання на логін -->
+                    <TextBlock Margin="0 5 0 5" HorizontalAlignment="Center">
+                        <Hyperlink Command="{Binding NavigateToLogin}" Foreground="LightBlue" 
+                                   TextDecorations="Underline">I have an account</Hyperlink>
+                    </TextBlock>
 
-                        <!-- Повідомлення про помилку -->
-                        <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" Margin="0 10" TextAlignment="Center"/>
+                    <!-- Кнопка Реєстрації -->
+                    <Button Margin="0 0 0 5" VerticalAlignment="Stretch" 
+                            Command="{Binding RegisterCommand}" Style="{StaticResource RegistrationButtonStyle}">
+                        <Button.Content>
+                            <TextBlock Text="Registration" FontWeight="Medium"/>
+                        </Button.Content>
+                    </Button>
 
-                        <!-- Посилання на логін -->
-                        <TextBlock Margin="0 10 0 10" HorizontalAlignment="Center">
-                            <Hyperlink Command="{Binding NavigateToLogin}" Foreground="LightBlue" 
-                                       TextDecorations="Underline">I have an account</Hyperlink>
-                        </TextBlock>
-
-                        <!-- Кнопка Реєстрації -->
-                        <Button Padding="10" Margin="0 0 0 10" VerticalAlignment="Stretch" 
-                                Command="{Binding RegisterCommand}" Background="#4CAF50" Foreground="White" 
-                                BorderBrush="#388E3C" BorderThickness="1" Cursor="Hand">
-                            <Button.Content>
-                                <TextBlock Text="Registration" FontWeight="Medium"/>
-                            </Button.Content>
-                        </Button>
-
-                        <!-- Кнопка Продовжити без реєстрації -->
-                        <Button Grid.Column="1" Grid.Row="0" Margin="10" Padding="10" VerticalAlignment="Center" 
-                                HorizontalAlignment="Center" Command="{Binding NavigateToImageEditor}" 
-                                Background="#FF5722" Foreground="White" BorderBrush="#D84315" BorderThickness="1" Cursor="Hand">
-                            <Button.Content>
-                                <TextBlock Text="Continue without registration" FontWeight="Medium"/>
-                            </Button.Content>
-                        </Button>
-                    </StackPanel>
-                </ScrollViewer>
+                    <!-- Кнопка Продовжити без реєстрації -->
+                    <Button Margin="0 5 0 0" VerticalAlignment="Center" 
+                            HorizontalAlignment="Center" Command="{Binding NavigateToImageEditor}" 
+                            Style="{StaticResource ContinueButtonStyle}">
+                        <Button.Content>
+                            <TextBlock Text="Continue without registration" FontWeight="Medium"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
             </Border>
         </Grid>
     </Border>

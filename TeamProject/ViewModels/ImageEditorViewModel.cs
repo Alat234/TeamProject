@@ -22,6 +22,7 @@ public class ImageEditorViewModel:ViewModelBase
     private Color _selectedColor;
     private  string _secretText ;
     private readonly IImageEditorService _imageEditorService;
+    private bool _isImageLoadedManually;
     public RelayCommand AddNoiseCommand { get; set; }
     public RelayCommand SaveChangesCommand { get; set; }
     public RelayCommand UndoEditChangesCommand { get; set; }
@@ -108,38 +109,28 @@ public class ImageEditorViewModel:ViewModelBase
 
     private void SetImage()
     {
-        _imageDtoFromDb=_imageServise.GetImageFromStore();
-        if (_imageDtoFromDb != null)
+        _imageDtoFromDb = _imageServise.GetImageFromStore();
+        if (_imageDtoFromDb != null && !_isImageLoadedManually)
         {
             ImageSource = _imageDtoFromDb.ImageSource;
-            EditedImageSource =_imageDtoFromDb.ImageSource;
-            
+            EditedImageSource = _imageDtoFromDb.ImageSource;
         }
-        else
+        else if (_authService.CurrentUser != null && !_isImageLoadedManually)
         {
-            if (_authService.CurrentUser != null)
+            _imageDtoFromDb = new ImageDto
             {
-                _imageDtoFromDb = new ImageDto()
-                {
-                    ImageSource = null,
-                    UserId = _authService.CurrentUser.Id
-
-                };
-            }
-            else
+                ImageSource = null,
+                UserId = _authService.CurrentUser.Id
+            };
+            _imageServise.SetImageInStore(_imageDtoFromDb);
+        }
+        else if (!_isImageLoadedManually)
+        {
+            _imageDtoFromDb = new ImageDto
             {
-                _imageDtoFromDb = new ImageDto()
-                {
-                    ImageSource = null
-                };
-
-            }
-
-            _imageServise.SetImageInStore( _imageDtoFromDb);
-            
-            
-            
-            
+                ImageSource = null
+            };
+            _imageServise.SetImageInStore(_imageDtoFromDb);
         }
         
           
@@ -183,7 +174,7 @@ public class ImageEditorViewModel:ViewModelBase
 
     public void SaveChanges()
     {
-        if (_imageDtoFromDb == null)
+        if (_imageDtoFromDb.Id == 0)
         {
             var imageDto = new ImageDto()
             {
@@ -316,6 +307,7 @@ public class ImageEditorViewModel:ViewModelBase
                EditedImageSource = bitmapImage;
                _imageDtoFromDb.ImageSource =EditedImageSource ;
                _imageServise.SetImageInStore(_imageDtoFromDb);
+               _isImageLoadedManually = true;
            }
            catch (Exception ex)
            {

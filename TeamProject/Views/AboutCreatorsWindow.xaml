@@ -1,0 +1,37 @@
+﻿<Window x:Class="TeamProject.Views.AboutCreatorsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:TeamProject.Views"
+        mc:Ignorable="d"
+        Title="AboutCreators" Height="450" Width="800">
+        <Grid Margin="20">
+                <!-- Фонова панель із стилем, як у RegistrationView/LoginView -->
+                <Border Background="#444" 
+                        CornerRadius="10" 
+                        BorderBrush="#666" 
+                        BorderThickness="1" 
+                        Padding="20">
+                        <TextBlock Text="Про команду ZDZ:
+ZDZ - це новостворена амбітна команда молодих талантів, 
+яка прагне розвивати інноваційні рішення у сфері програмного забезпечення. 
+Ми - група ентузіастів, готових втілювати ваші ідеї в життя, 
+створюючи інструменти, що відповідають вашим потребам. 
+Над створенням цієї програми працювали:
+- Атаманюк Владислав Тарасович - головний розробник, 
+  відповідальний за архітектуру та основну логіку.
+- Бернацький Євген Олегович - дизайнер інтерфейсу, 
+ -що реалізував фільтри та шифрування
+- Бащук Ростислав Юрійович - спеціаліст із алгоритмів, 
+  -який створив зручний та стильний дизайн.
+Ця команда працює з ентузіазмом і відданістю, 
+щоб зробити TeamProject кращим із кожним оновленням. 
+Дякуємо за вашу підтримку та зворотний зв’язок!" 
+                                   TextWrapping="Wrap" 
+                                   FontSize="14" 
+                                   Foreground="White"
+                                   /> <!-- Можливість копіювання -->
+                </Border>
+        </Grid>
+</Window>

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TeamProject.Views"
              mc:Ignorable="d"
-             d:DesignHeight="50" d:DesignWidth="333">
+             d:DesignHeight="50" d:DesignWidth="1000">
   <Border Background="#333" Height="50">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -28,6 +28,25 @@
                         Padding="10,5" 
                         Background="#555" 
                         Foreground="White"/>
+                <Button Content="About Program" 
+                        Command="{Binding ShowInfoAboutProgramCommand}" 
+                        Margin="50,0,10,0" 
+                        Padding="10,5" 
+                        Background="#555" 
+                        Foreground="White"/> 
+                <Button Content="Instruction" 
+                        Command="{Binding ShowInstructionCommand}" 
+                        Margin="10,0" 
+                        Padding="10,5" 
+                        Background="#555" 
+                        Foreground="White"/>
+                <Button Content="About Creator" 
+                        Command="{Binding ShowInfoAboutCreatorsCommand}" 
+                        Margin="10,0" 
+                        Padding="10,5" 
+                        Background="#555" 
+                        Foreground="White"/>
+                
             </StackPanel>
 
             <Button x:Name="UserButton" 

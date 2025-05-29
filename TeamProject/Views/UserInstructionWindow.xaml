@@ -1,0 +1,26 @@
+﻿<Window x:Class="TeamProject.Views.UserInstructionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:TeamProject.Views"
+        mc:Ignorable="d"
+        Title="UserInstructionWindow" Height="450" Width="800">
+    <Grid Margin="20">
+      
+        <Border Background="#444" 
+                CornerRadius="10" 
+                BorderBrush="#666" 
+                BorderThickness="1" 
+                Padding="15">
+            <TextBlock Text="Про програму:
+                 T eamProject - це програма для редагування зображень.
+                   Версія: 1.0
+                  Дата: 29 травня 2025
+                  Розроблено компанією xAI." 
+                       TextWrapping="Wrap" 
+                       FontSize="14" 
+                       Foreground="White"/>
+        </Border>
+    </Grid>
+</Window>

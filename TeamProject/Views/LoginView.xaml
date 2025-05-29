@@ -6,62 +6,132 @@
              xmlns:local="clr-namespace:TeamProject.Views"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-   <Border Background="#333">
-    <Grid >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-           
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <UserControl.Resources>
+        <!-- Стиль для кнопки "Login" -->
+        <Style x:Key="LoginButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#388E3C"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="15 8"/> <!-- Збільшено горизонтальний Padding для ширшого вигляду -->
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="MinWidth" Value="150"/> <!-- Мінімальна ширина кнопки -->
+            <Setter Property="MinHeight" Value="40"/> <!-- Мінімальна висота кнопки -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="0"> <!-- Гострі кути -->
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <!-- Тригер для відключеного стану -->
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                    <Setter Property="Background" Value="#4CAF50"/>
+                    <Setter Property="BorderBrush" Value="#388E3C"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
-        <Button  Grid.Column="5" 
-             Grid.Row="0" 
-             Margin="10"
-             Padding="10"
-                 VerticalAlignment="Center"
-                 HorizontalAlignment="Center"
-             x:Name="Continue_without_regestraton" 
-             Command="{Binding  NavigateToImageEditor}"
-             >
-            Continue without regestraton</Button>
-        <ScrollViewer Grid.Column="1" Grid.RowSpan="4" Grid.Row="1" Grid.ColumnSpan="3" 
-                      VerticalScrollBarVisibility="Auto">
-            <StackPanel Orientation="Vertical"
-                        Margin="10"
-                        VerticalAlignment="Stretch"
-                        HorizontalAlignment="Stretch">
-                <TextBlock Margin="0 0 0 10">Enter Email</TextBlock>
-                <TextBox x:Name="Email" Padding="10" Margin="0 0 0 10" VerticalAlignment="Stretch" 
-                         Text="{Binding Email}"/>
+        <!-- Стиль для кнопки "Continue without login" -->
+        <Style x:Key="ContinueButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FF5722"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#D84315"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="15 8"/> <!-- Збільшено горизонтальний Padding для ширшого вигляду -->
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="MinWidth" Value="200"/> <!-- Більша ширина для довшого тексту -->
+            <Setter Property="MinHeight" Value="40"/> <!-- Мінімальна висота кнопки -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="0"> <!-- Гострі кути -->
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <!-- Тригер для відключеного стану -->
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                    <Setter Property="Background" Value="#FF5722"/>
+                    <Setter Property="BorderBrush" Value="#D84315"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
 
-                
+    <Border Background="#333">
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-                <TextBlock Margin="0 0 0 10">Enter Password</TextBlock>
-                <PasswordBox x:Name="Password" Padding="10" Margin="0 0 0 10"
-                             PasswordChanged="PasswordBox_PasswordChanged" VerticalAlignment="Stretch" 
-                             />
+            <!-- Фонова панель для форми -->
+            <Border Grid.Column="1" Grid.Row="1" Background="#444" CornerRadius="10" Padding="15" 
+                    BorderBrush="#666" BorderThickness="1">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <!-- Заголовок -->
+                    <TextBlock Text="Login" FontSize="20" Foreground="White" 
+                               FontWeight="Bold" Margin="0 0 0 10" TextAlignment="Center"/>
 
+                    <!-- Поле Email -->
+                    <TextBlock Text="Enter Email" Foreground="LightGray" Margin="0 0 0 3"/>
+                    <TextBox x:Name="Email" Padding="8" Margin="0 0 0 5" VerticalAlignment="Stretch" 
+                             Text="{Binding Email}" Background="#555" Foreground="White" 
+                             BorderBrush="#888" BorderThickness="1" />
 
-                <TextBlock Margin="0 0 0 10" HorizontalAlignment="Center"  >
-                    <Hyperlink Command="{Binding NavigateToRegistration}"
-                               TextDecorations="Underline">I don`t have an account</Hyperlink>
-                </TextBlock>
-                <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,10" />
-                <Button x:Name="Login1" Padding="10" VerticalAlignment="Stretch" Margin="0 0 0 10" 
-                        Command="{Binding LoginCommand}" >Login</Button>
-            </StackPanel>
-        </ScrollViewer>
-    </Grid>
-</Border>
+                    <!-- Поле Password -->
+                    <TextBlock Text="Enter Password" Foreground="LightGray" Margin="0 0 0 3"/>
+                    <PasswordBox x:Name="Password" Padding="8" Margin="0 0 0 5" VerticalAlignment="Stretch" 
+                                 PasswordChanged="PasswordBox_PasswordChanged" Background="#555" Foreground="White" 
+                                 BorderBrush="#888" BorderThickness="1" />
+
+                    <!-- Посилання на реєстрацію -->
+                    <TextBlock Margin="0 5 0 5" HorizontalAlignment="Center">
+                        <Hyperlink Command="{Binding NavigateToRegistration}" Foreground="LightBlue" 
+                                   TextDecorations="Underline">I don`t have an account</Hyperlink>
+                    </TextBlock>
+
+                    <!-- Повідомлення про помилку -->
+                    <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" Margin="0 5" TextAlignment="Center"/>
+
+                    <!-- Кнопка Login -->
+                    <Button x:Name="Login1" Margin="0 0 0 5" VerticalAlignment="Stretch" 
+                            Command="{Binding LoginCommand}" Style="{StaticResource LoginButtonStyle}">
+                        <Button.Content>
+                            <TextBlock Text="Login" FontWeight="Medium"/>
+                        </Button.Content>
+                    </Button>
+
+                    <!-- Кнопка Продовжити без логіну -->
+                    <Button Margin="0 5 0 0" VerticalAlignment="Center" 
+                            HorizontalAlignment="Center" Command="{Binding NavigateToImageEditor}" 
+                            Style="{StaticResource ContinueButtonStyle}">
+                        <Button.Content>
+                            <TextBlock Text="Continue without login" FontWeight="Medium"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
 </UserControl>

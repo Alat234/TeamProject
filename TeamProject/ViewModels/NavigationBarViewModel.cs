@@ -2,6 +2,7 @@
 using TeamProject.Base;
 using TeamProject.DTOs;
 using TeamProject.Services;
+using TeamProject.Views;
 
 namespace TeamProject.ViewModels;
 
@@ -17,6 +18,11 @@ public class NavigationBarViewModel : ViewModelBase
     public RelayCommand ShowUserInfoCommand { get; set; }
     public RelayCommand NavigateToMyImagesCommand { get; set; }
     public RelayCommand NavigateToImageEditorCommand { get; set; }
+    public RelayCommand NavigateToCreatorInfo { get; set; }
+    public RelayCommand ShowInfoAboutProgramCommand { get; set; }
+    public RelayCommand ShowInfoAboutCreatorsCommand { get; set; }
+    public RelayCommand ShowInstructionCommand { get; set; }
+
     public NavigationBarViewModel(INavigationService navService, IAuthenticationService authService)
     {
         _navService = navService ?? throw new ArgumentNullException(nameof(navService));
@@ -26,12 +32,37 @@ public class NavigationBarViewModel : ViewModelBase
       
         ShowUserInfoCommand = new RelayCommand(execute: _ => ShowUserInfo());
         LogoutCommand = new RelayCommand(execute: _ => Logout());
+        NavigateToCreatorInfo=  new RelayCommand(execute: _ =>Navigation.NavigateTo<MyImageViewModel>() );
+        
         NavigateToMyImagesCommand = new RelayCommand(execute: _ =>Navigation.NavigateTo<MyImageViewModel>() );
         NavigateToImageEditorCommand = new RelayCommand(execute: _ =>Navigation.NavigateTo<ImageEditorViewModel>() );
+        ShowInfoAboutProgramCommand = new RelayCommand(execute: _ =>ShowInfoAboutProgram() );
+        ShowInfoAboutCreatorsCommand=new  RelayCommand(execute: _ =>ShowInfoAboutCreators() );
+        ShowInstructionCommand=new RelayCommand(execute: _ =>ShowInstruction() );
+        
     }
 
- 
+    private void ShowInstruction()
+    {
+        var instructionWindow = new UserInstructionWindow();
+        instructionWindow.ShowDialog();
+    }
 
+
+    private void ShowInfoAboutCreators()
+    {
+        var aboutCreatorsWindow = new AboutCreatorsWindow();
+        aboutCreatorsWindow.ShowDialog();
+    }
+
+
+    private void ShowInfoAboutProgram()
+    {
+        var aboutProgramWindow = new AboutProgram();
+        aboutProgramWindow.ShowDialog();
+    }
+
+    
 
     private INavigationService Navigation
     {

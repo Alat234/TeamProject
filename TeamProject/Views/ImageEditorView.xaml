@@ -39,7 +39,7 @@
                     <ComboBox SelectedItem="{Binding SelectedBuildMethod}" Margin="0,0,0,10">
                         <filters:BuildMethod>Lines</filters:BuildMethod>
                         <filters:BuildMethod>Rain</filters:BuildMethod>
-                        <filters:BuildMethod>Vignette</filters:BuildMethod>
+                        <filters:BuildMethod>Pixelation</filters:BuildMethod>
                     </ComboBox>
 
                     <TextBlock Text="Chose Color" FontWeight="Bold" Margin="0,0,0,5"/>
@@ -109,13 +109,24 @@
                 </Grid.RowDefinitions>
 
                 <!-- Зображення -->
+                <Image Source="{Binding ImageSource}"
+                       Stretch="Uniform"
+                       MaxHeight="700"
+                       MaxWidth="900"
+                       HorizontalAlignment="Center"
+                       Margin="0,15,0,0"
+                       VerticalAlignment="Center"
+                       Opacity="{Binding ImageBlendValue, Converter={StaticResource InverseOpacityConverter}}"/>
+
+                <!-- Відредаговане зображення поверх оригіналу -->
                 <Image Source="{Binding EditedImageSource}"
                        Stretch="Uniform"
                        MaxHeight="700"
                        MaxWidth="900"
                        HorizontalAlignment="Center"
                        Margin="0,15,0,0"
-                       VerticalAlignment="Center"/>
+                       VerticalAlignment="Center"
+                       Opacity="{Binding ImageBlendValue}"/>
 
                 <!-- Слайдер, текст і кнопка -->
                 <StackPanel Grid.Row="1" Margin="0,20,0,50"> <!-- Збільшено відступ знизу -->

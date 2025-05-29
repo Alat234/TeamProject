@@ -34,7 +34,7 @@ public class GetSecretTextCommand : IGetSecretText
         byte currentByte = 0;
         int bitCount = 0;
 
-        // Витягуємо біти з зображення
+       
         for (int i = 0; i < pixelData.Length; i++)
         {
             if (i % 4 == 3) continue; 

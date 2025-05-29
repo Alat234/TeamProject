@@ -13,7 +13,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Навігаційна панель -->
+  
         <local:NavigationBar Grid.Row="0" DataContext="{Binding NavigationBarViewModel}"/>
 
         <!-- Список зображень -->
