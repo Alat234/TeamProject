@@ -13,12 +13,14 @@ public class ImageMapper : Profile
         //  ImageEntity → ImageDTO
         CreateMap<ImageEntity, ImageDto>()
             .ForMember(dest => dest.ImageSource, 
-                opt => opt.MapFrom(src => ConvertByteArrayToBitmapSource(src.ImageData)));
+                opt => opt.MapFrom(src => ConvertByteArrayToBitmapSource(src.ImageData)))
+            .ForMember(dest => dest.SecretText, opt => opt.Ignore()); // ІГНОРУЄМО SecretText при відображенні з Entity до DTO
 
-        // М ImageDTO → ImageEntity
+        //  ImageDTO → ImageEntity
         CreateMap<ImageDto, ImageEntity>()
-            .ForMember(dest => dest.ImageData, 
+            .ForMember(dest => dest.ImageData,
                 opt => opt.MapFrom(src => ConvertBitmapSourceToByteArray(src.ImageSource)));
+
     }
 
     private BitmapSource ConvertByteArrayToBitmapSource(byte[] byteArray)
@@ -51,5 +53,4 @@ public class ImageMapper : Profile
             return stream.ToArray();
         }
     }
-    
 }

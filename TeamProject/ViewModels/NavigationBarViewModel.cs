@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Windows;
+using System.Windows.Controls;
+using AutoMapper;
 using TeamProject.Base;
 using TeamProject.DTOs;
 using TeamProject.Services;
@@ -14,8 +16,9 @@ public class NavigationBarViewModel : ViewModelBase
     private string _userName;
     private string _userEmail;
     private bool _isPopupOpen;
-    private bool _isPasswordVerified;
+    private bool _isPasswordVerified=false;
     private string _enteredPassword;
+   
     public RelayCommand LogoutCommand { get; set; }
     public RelayCommand ShowUserInfoCommand { get; set; }
     public RelayCommand NavigateToMyImagesCommand { get; set; }
@@ -24,7 +27,7 @@ public class NavigationBarViewModel : ViewModelBase
     public RelayCommand ShowInfoAboutProgramCommand { get; set; }
     public RelayCommand ShowInfoAboutCreatorsCommand { get; set; }
     public RelayCommand ShowInstructionCommand { get; set; }
-
+    public RelayCommand NavigateSecretTextList { get; set; }
     public NavigationBarViewModel(INavigationService navService, IAuthenticationService authService)
     {
         _navService = navService ?? throw new ArgumentNullException(nameof(navService));
@@ -41,9 +44,42 @@ public class NavigationBarViewModel : ViewModelBase
         ShowInfoAboutProgramCommand = new RelayCommand(execute: _ =>ShowInfoAboutProgram() );
         ShowInfoAboutCreatorsCommand=new  RelayCommand(execute: _ =>ShowInfoAboutCreators() );
         ShowInstructionCommand=new RelayCommand(execute: _ =>ShowInstruction() );
+        NavigateSecretTextList= new RelayCommand(execute: _ =>Navigation.NavigateTo<SecretTextlistViewModel>() ,_=> CanShowSecretTextList());
         
     }
-   
+
+    private bool CanShowSecretTextList()
+    {
+       
+        if (VerifyPassword())
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public String EnteredPassword
+    {
+        get => _enteredPassword;
+        set
+        {
+            _enteredPassword = value;
+            OnPropertyChanged();
+        }
+    }
+    private bool VerifyPassword()
+    {
+        if (_authService.CurrentUser != null && _enteredPassword == _authService.CurrentUser.Password)
+        {
+            return true;
+        }
+        
+        return false;
+        
+    }
+
     private void ShowInstruction()
     {
         var instructionWindow = new UserInstructionWindow();
@@ -120,6 +156,7 @@ public class NavigationBarViewModel : ViewModelBase
             OnPropertyChanged(nameof(IsPopupOpen));
         }
     }
+   
 
     public RelayCommand NavigateToLoginCommand { get; set; }
     

@@ -16,6 +16,7 @@ public interface IImageService
     
     void SetImageInStore(ImageDto imageDto);
     ImageDto? GetImageFromStore();
+    Task<List<ImageDto>> GetListOfImageWithSecretText(int id);
     
 
 }
@@ -28,11 +29,14 @@ public class ImageService : IImageService
     private readonly IGetListOfImageByUserIdCommend _getListOfImageByUserIdCommend;
     private readonly IDeleteImageById _deleteImageById;
     private readonly IUpdateImageAsync _updateImageAsync;
+    private readonly IGetImagesWithSecretTextByUserIdCommand _getImagesWithSecretTextByUserIdCommand;
 
 
     public ImageService(IAddImageAsyn addImageAsyn, IGetImgeByIdCommand getImgeByIdCommand,
-        IGetListOfImageByUserIdCommend getListOfImageByUserIdCommend,IUpdateImageAsync updateImageAsync, IDeleteImageById deleteImageById,ImageStore imageStore )
+        IGetListOfImageByUserIdCommend getListOfImageByUserIdCommend,IUpdateImageAsync updateImageAsync, 
+        IDeleteImageById deleteImageById,ImageStore imageStore, IGetImagesWithSecretTextByUserIdCommand getImagesWithSecretTextByUserIdCommand )
     {
+        _getImagesWithSecretTextByUserIdCommand=getImagesWithSecretTextByUserIdCommand;
         _updateImageAsync = updateImageAsync;
         ImageStore = imageStore;
         _deleteImageById = deleteImageById;
@@ -77,6 +81,9 @@ public class ImageService : IImageService
     {
         return ImageStore.CurrentImage;
     }
-    
-   
+
+    public Task<List<ImageDto>> GetListOfImageWithSecretText(int id)
+    {
+        return _getImagesWithSecretTextByUserIdCommand.ExecuteAsync(id);
+    }
 }

@@ -10,6 +10,7 @@ public class ImageDto
     public BitmapSource ImageSource { get; set; }
     public DateTime? CreatedAt { get; set; }
     public bool HasSecretText { get; set; }
+    public string? SecretText { get; set; } //SecretText
     public int UserId { get; set; }
    
 

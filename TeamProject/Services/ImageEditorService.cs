@@ -8,7 +8,7 @@ namespace TeamProject.Services;
 
 public interface  IImageEditorService
 {
-    BitmapSource AddWatermark(BitmapSource image, string watermarkText, Color color);
+   
     BitmapSource  AddNoise(BitmapSource bitmapSource);
     string  GetSecretText(BitmapSource bitmapSource);
     BitmapSource AddSecretText(BitmapSource bitmapSource,string secretText);
@@ -18,7 +18,7 @@ public interface  IImageEditorService
 }
 public class ImageEditorService: IImageEditorService
 {
-    private readonly IAddWatermarkCommend _addWatermarkCommend;
+    
     private readonly IAddNoiseCommand _addNoiseCommand;
     private readonly IGetSecretText _getSecretText;
     private readonly IAddSecretTextCommand _addSecretTextCommand;
@@ -27,7 +27,7 @@ public class ImageEditorService: IImageEditorService
     private readonly IPixelationCommand _pixelationCommand;
 
 
-    public ImageEditorService(IAddWatermarkCommend addWatermarkCommend,IAddNoiseCommand addNoiseCommand,
+    public ImageEditorService(IAddNoiseCommand addNoiseCommand,
         IGetSecretText getSecretText,IAddSecretTextCommand addSecretTextCommand, IModifyLinesCommand modifyLinesCommand
         ,IModifyRainCommand modifyRainCommand,IPixelationCommand pixelationCommand)
     {
@@ -36,13 +36,9 @@ public class ImageEditorService: IImageEditorService
         _modifyLinesCommand=modifyLinesCommand;
         _addSecretTextCommand=addSecretTextCommand;
         _getSecretText=getSecretText;
-        _addWatermarkCommend=addWatermarkCommend;
         _addNoiseCommand=addNoiseCommand;
     }
-    public BitmapSource AddWatermark(BitmapSource image, string watermarkText, Color color)
-    {
-       return _addWatermarkCommend.AddWatermark(image, watermarkText, color);
-    }
+    
 
     public BitmapSource AddNoise(BitmapSource bitmapSource)
     {

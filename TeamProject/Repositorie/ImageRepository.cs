@@ -12,6 +12,7 @@ public interface IImageRepository
     Task<ImageEntity?> AddImage(ImageEntity image);
     Task<ImageEntity?> UpdateImage(ImageEntity image);
     Task DeleteImage(int id);
+    Task<List<ImageEntity>> GetImagesWithSecretTextByUserId(int userId);
 }
 public class ImageRepository: IImageRepository
 {
@@ -59,5 +60,12 @@ public class ImageRepository: IImageRepository
             _context.Images.Remove(image);
             await _context.SaveChangesAsync();
         }
+    }
+
+    public async Task<List<ImageEntity>> GetImagesWithSecretTextByUserId(int userId)
+    {
+        return await _context.Images
+            .Where(i => i.UserId == userId && i.HasSecretText) 
+            .ToListAsync();;
     }
 }

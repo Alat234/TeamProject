@@ -6,6 +6,9 @@
              xmlns:local="clr-namespace:TeamProject.Views"
              mc:Ignorable="d"
              d:DesignHeight="50" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
     <Border Background="#333" Height="50">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -77,19 +80,18 @@
                         <TextBlock Text="{Binding UserEmail}" Foreground="White" Margin="10,0,0,10"/>
 
                         <TextBlock Text="Secret Text Section:" Foreground="White" FontWeight="Bold" Margin="0,10,0,5"/>
-                        <Button x:Name="ViewSecretImagesButton" 
-                                Content="View All Secret Images" 
-                                Command="{Binding ViewSecretImagesCommand}" 
-                                Margin="0,0,0,5" 
-                                Padding="5" 
-                                Background="#555" 
-                                Foreground="White" 
-                                IsEnabled="{Binding IsPasswordVerified}"/>
+                        
 
-                        <StackPanel x:Name="PasswordPrompt" Visibility="{Binding IsPasswordPromptVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel x:Name="PasswordPrompt" Visibility="{Binding IsPopupOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <TextBlock Text="Enter Password:" Foreground="White" Margin="0,0,0,2"/>
                             <PasswordBox x:Name="PasswordBox" PasswordChanged="PasswordBox_PasswordChanged" Width="200" Height="25" Margin="0,0,0,5"/>
-                            <Button Content="Verify" Command="{Binding VerifyPasswordCommand}" Padding="5" Background="#555" Foreground="White"/>
+                            <Button x:Name="ViewSecretImagesButton" 
+                                    Content="View All Secret Images" 
+                                    Command="{Binding NavigateSecretTextList}" 
+                                    Margin="0,0,0,5" 
+                                    Padding="5" 
+                                    Background="#555" 
+                                    Foreground="White"/>
                         </StackPanel>
 
                         <Button Content="Logout" Command="{Binding LogoutCommand}" Margin="0,10,0,0" Padding="5" Background="#555" Foreground="White"/>

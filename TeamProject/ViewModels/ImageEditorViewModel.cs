@@ -23,6 +23,7 @@ public class ImageEditorViewModel:ViewModelBase
     private  string _secretText ;
     private readonly IImageEditorService _imageEditorService;
     private bool _isImageLoadedManually;
+    private bool _isImageHasSecretText=false;
     public RelayCommand AddNoiseCommand { get; set; }
     public RelayCommand SaveChangesCommand { get; set; }
     public RelayCommand UndoEditChangesCommand { get; set; }
@@ -160,6 +161,10 @@ public class ImageEditorViewModel:ViewModelBase
         _isProgresSaved = false;
         _imageDtoFromDb.ImageSource = EditedImageSource;
         _imageServise.SetImageInStore(_imageDtoFromDb);
+        _imageDtoFromDb.HasSecretText = true;
+        _isImageHasSecretText=true;
+        
+        ImageBlendValue = 1;
     }
 
     private void GetSecretText()
@@ -179,7 +184,9 @@ public class ImageEditorViewModel:ViewModelBase
             var imageDto = new ImageDto()
             {
                 ImageSource = _editedImageSource,
-                UserId = _authService.CurrentUser.Id
+                UserId = _authService.CurrentUser.Id,
+                HasSecretText = _isImageHasSecretText
+                
 
             };
             _imageServise.AddImageAsync(imageDto);
@@ -283,7 +290,7 @@ public class ImageEditorViewModel:ViewModelBase
        {
            string filePath = openFileDialog.FileName;
 
-           // Перевірка розширення
+  
            if (!Path.GetExtension(filePath).Equals(".bmp", StringComparison.OrdinalIgnoreCase))
            {
                MessageBox.Show(

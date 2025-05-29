@@ -28,6 +28,7 @@ public partial class App : Application
             services.AddAutoMapper(typeof(ImageMapper));
             //Comand
             services.AddTransient<IModifyRainCommand,ModifyRainCommand>();
+            services.AddTransient<IGetImagesWithSecretTextByUserIdCommand,GetImagesWithSecretTextByUserIdCommand>();
             services.AddTransient<IPixelationCommand,PixelationCommand>();
             services.AddTransient<IAddNoiseCommand,AddNoiseCommand>();
             services.AddTransient<IUpdateImageAsync,UpdateImageAsync>();
@@ -65,6 +66,7 @@ public partial class App : Application
             services.AddTransient<MainViewModal>();
             services.AddTransient<NavigationBarViewModel>();
             services.AddTransient<MyImageViewModel>();
+            services.AddTransient<SecretTextlistViewModel>();
             services.AddTransient<ImageEditorViewModel>();
             services.AddTransient<LoginViewModal>();
             services.AddTransient<RegistrationViewModel>();

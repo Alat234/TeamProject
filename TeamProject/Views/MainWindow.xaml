@@ -27,6 +27,9 @@
             <DataTemplate DataType="{x:Type vms:MyImageViewModel}">
                 <views:MyImageView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:SecretTextlistViewModel}">
+                <views:SecretTextlistView />
+            </DataTemplate>
         </Grid.Resources>
         <ContentControl Content="{Binding CurrentViewModel}" />
     </Grid>
