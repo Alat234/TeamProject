@@ -25,7 +25,7 @@ public class BmpEditorDbContext : DbContext
             entity.HasMany(e => e.Images)
                 .WithOne()
                 .HasForeignKey("UserId")
-                .OnDelete(DeleteBehavior.Cascade); // Видаляє зображення, якщо користувач видалений
+                .OnDelete(DeleteBehavior.Cascade); 
         });
 
         modelBuilder.Entity<ImageEntity>(entity =>
@@ -34,6 +34,7 @@ public class BmpEditorDbContext : DbContext
             entity.HasKey(e => e.Id);
             entity.Property(e => e.ImageData).IsRequired(false);
             entity.Property(e => e.UserId).IsRequired();
+            entity.Property(e => e.HasSecretText).IsRequired().HasDefaultValue(false);
         });
     }
 }

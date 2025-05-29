@@ -38,7 +38,6 @@ public partial class App : Application
             services.AddTransient<IGetListOfImageByUserIdCommend,GetListOfImageByUserIdCommend>();
             services.AddTransient<IGetImgeByIdCommand,GetImageByIdCommand>();
             services.AddTransient<IAddImageAsyn,AddImageAsyn>();
-            services.AddTransient<IAddWatermarkCommend,AddWatermarkCommend>();
             services.AddTransient<IRegistrationCommend,RegistrationCommend>();
             services.AddTransient<ILoginCommend,LoginCommend>();
             

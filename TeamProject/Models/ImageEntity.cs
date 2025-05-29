@@ -12,6 +12,7 @@ public class ImageEntity
     public byte[]? ImageData { get; set; }
     public int UserId { get; set; }
     public DateTime CreatedAt { get; set; }
+    public bool HasSecretText { get; set; }
     
 
   

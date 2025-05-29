@@ -14,6 +14,8 @@ public class NavigationBarViewModel : ViewModelBase
     private string _userName;
     private string _userEmail;
     private bool _isPopupOpen;
+    private bool _isPasswordVerified;
+    private string _enteredPassword;
     public RelayCommand LogoutCommand { get; set; }
     public RelayCommand ShowUserInfoCommand { get; set; }
     public RelayCommand NavigateToMyImagesCommand { get; set; }
@@ -41,7 +43,7 @@ public class NavigationBarViewModel : ViewModelBase
         ShowInstructionCommand=new RelayCommand(execute: _ =>ShowInstruction() );
         
     }
-
+   
     private void ShowInstruction()
     {
         var instructionWindow = new UserInstructionWindow();

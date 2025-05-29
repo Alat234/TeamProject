@@ -9,6 +9,7 @@ public class ImageDto
     public int Id{get;set;}
     public BitmapSource ImageSource { get; set; }
     public DateTime? CreatedAt { get; set; }
+    public bool HasSecretText { get; set; }
     public int UserId { get; set; }
    
 
