@@ -18,7 +18,8 @@ public class NavigationBarViewModel : ViewModelBase
     private bool _isPopupOpen;
     private bool _isPasswordVerified=false;
     private string _enteredPassword;
-   
+    private readonly IUserService _userService;
+
     public RelayCommand LogoutCommand { get; set; }
     public RelayCommand ShowUserInfoCommand { get; set; }
     public RelayCommand NavigateToMyImagesCommand { get; set; }
@@ -28,8 +29,9 @@ public class NavigationBarViewModel : ViewModelBase
     public RelayCommand ShowInfoAboutCreatorsCommand { get; set; }
     public RelayCommand ShowInstructionCommand { get; set; }
     public RelayCommand NavigateSecretTextList { get; set; }
-    public NavigationBarViewModel(INavigationService navService, IAuthenticationService authService)
+    public NavigationBarViewModel(INavigationService navService, IAuthenticationService authService,IUserService userService )
     {
+        _userService = userService;
         _navService = navService ?? throw new ArgumentNullException(nameof(navService));
         _authService = authService ?? throw new ArgumentNullException(nameof(authService));
         GetUserData();
@@ -71,7 +73,7 @@ public class NavigationBarViewModel : ViewModelBase
     }
     private bool VerifyPassword()
     {
-        if (_authService.CurrentUser != null && _enteredPassword == _authService.CurrentUser.Password)
+        if (_authService.CurrentUser != null && _enteredPassword == _userDto.Password)
         {
             return true;
         }
@@ -83,21 +85,21 @@ public class NavigationBarViewModel : ViewModelBase
     private void ShowInstruction()
     {
         var instructionWindow = new UserInstructionWindow();
-        instructionWindow.ShowDialog();
+        instructionWindow.Show();
     }
 
 
     private void ShowInfoAboutCreators()
     {
         var aboutCreatorsWindow = new AboutCreatorsWindow();
-        aboutCreatorsWindow.ShowDialog();
+        aboutCreatorsWindow.Show();
     }
 
 
     private void ShowInfoAboutProgram()
     {
         var aboutProgramWindow = new AboutProgram();
-        aboutProgramWindow.ShowDialog();
+        aboutProgramWindow.Show();
     }
 
     
@@ -161,9 +163,16 @@ public class NavigationBarViewModel : ViewModelBase
     public RelayCommand NavigateToLoginCommand { get; set; }
     
 
-    private void GetUserData()
+    private async Task GetUserData()
     {
-        UserDto = _authService.CurrentUser ?? new UserDto { Name = "Guest" };
+        var tempuser=_authService.CurrentUser;
+        if (tempuser != null)
+        {
+            var userDto = await _userService.GetUserById(tempuser.Id);
+            UserDto = userDto;
+          
+        }
+        
     }
 
     private void UpdateUserName()

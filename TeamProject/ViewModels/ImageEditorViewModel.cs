@@ -41,14 +41,14 @@ public class ImageEditorViewModel:ViewModelBase
     
     public RelayCommand LoadImageCommand { get; set; }
     public ImageEditorViewModel( IImageEditorService imageEditorService,IAuthenticationService authService, 
-        INavigationService navigationService, IImageService imageService)
+        INavigationService navigationService, IImageService imageService,IUserService userService)
     {
       
         _imageServise = imageService;
         
         _authService = authService;
         _imageEditorService = imageEditorService;
-        NavigationBarViewModel = new NavigationBarViewModel(navigationService, authService);
+        NavigationBarViewModel = new NavigationBarViewModel(navigationService, authService,userService);
         LoadImageCommand = new RelayCommand(execute: _ => LoadImage());
         UndoEditChangesCommand = new RelayCommand(execute: _ => UndoEditChanges(), canExecute: _ => ImageSource != EditedImageSource);
         SaveChangesCommand= new RelayCommand(execute: _ => SaveChanges(),canExecute:_=> _authService.CurrentUser!=null);
@@ -161,8 +161,13 @@ public class ImageEditorViewModel:ViewModelBase
         _isProgresSaved = false;
         _imageDtoFromDb.ImageSource = EditedImageSource;
         _imageServise.SetImageInStore(_imageDtoFromDb);
-        _imageDtoFromDb.HasSecretText = true;
-        _isImageHasSecretText=true;
+        if (_secretText != null)
+        {
+            _imageDtoFromDb.HasSecretText = true;
+            _isImageHasSecretText=true;
+            
+        }
+        
         
         ImageBlendValue = 1;
     }
@@ -172,9 +177,12 @@ public class ImageEditorViewModel:ViewModelBase
         if (ImageSource == null)
             return;
         SecretText = _imageEditorService.GetSecretText(_editedImageSource);
-        _imageDtoFromDb.HasSecretText = true;
-        _isImageHasSecretText=true;
-        
+        if (_secretText != null)
+        {
+            _imageDtoFromDb.HasSecretText = true;
+            _isImageHasSecretText=true;
+            
+        }
         
     }
 

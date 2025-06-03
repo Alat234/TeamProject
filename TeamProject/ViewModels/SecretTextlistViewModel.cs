@@ -66,9 +66,9 @@ public class SecretTextlistViewModel : ViewModelBase
     public ICommand ShowSecretTextCommand { get; } 
 
     public SecretTextlistViewModel(IImageEditorService imageEditorService,IAuthenticationService authService, 
-        INavigationService navigationService, IImageService imageService)
+        INavigationService navigationService, IImageService imageService,IUserService userService)
     {
-        NavigationBarViewModel = new NavigationBarViewModel(navigationService, authService);
+        NavigationBarViewModel = new NavigationBarViewModel(navigationService, authService,userService);
         _navigationService = navigationService;
         _imageService = imageService;
         UserImages = new ObservableCollection<ImageDto>();

@@ -28,6 +28,7 @@ public partial class App : Application
             services.AddAutoMapper(typeof(ImageMapper));
             //Comand
             services.AddTransient<IModifyRainCommand,ModifyRainCommand>();
+            services.AddTransient<IGetUserByIdCommand,GetUserByIdCommand>();
             services.AddTransient<IGetImagesWithSecretTextByUserIdCommand,GetImagesWithSecretTextByUserIdCommand>();
             services.AddTransient<IPixelationCommand,PixelationCommand>();
             services.AddTransient<IAddNoiseCommand,AddNoiseCommand>();

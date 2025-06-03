@@ -45,14 +45,14 @@ public class MyImageViewModel : ViewModelBase
         public ICommand EditImageCommand { get; }
         public ICommand DeleteImageCommand { get; }
 
-        public MyImageViewModel(IAuthenticationService authService, INavigationService navigationService, IImageService imageService)
+        public MyImageViewModel(IAuthenticationService authService, INavigationService navigationService, IImageService imageService, IUserService userService)
         {
            
             _authService = authService;
             _navigationService = navigationService;
             _imageService =imageService;
 
-            NavigationBarViewModel = new NavigationBarViewModel(navigationService, authService);
+            NavigationBarViewModel = new NavigationBarViewModel(navigationService, authService,userService);
             UserImages = new ObservableCollection<ImageDto>();
 
             EditImageCommand = new RelayCommand(execute: async parameter => await EditImage(parameter), canExecute: _ => true);
